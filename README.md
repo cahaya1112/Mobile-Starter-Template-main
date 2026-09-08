@@ -13,7 +13,7 @@
 ## 2. Bukti Tangkapan Layar (Running App)
 | Mode Portrait (Light) | Mode Dark Theme | Mode Landscape / Tablet (2 Kolom) |
 |---|---|---|
-| ![Portrait](./screenshots/running_portrait.png) | ![Dark](./screenshots/running_dark.png) | ![Wide](./screenshots/running_wide.png) |
+| ![Portrait](./screenshots/Screenshot%202026-09-08%20180454.png) | ![Dark](./screenshots/Screenshot%202026-09-08%20180441.png) | ![Wide](./screenshots/Screenshot%202026-09-08%20181229.png) |
 
 ## 3. Kendala Layout yang Dihadapi & Solusinya
 - **Kendala**: [Contoh: Terjadi overflow pada nama matakuliah yang panjang]

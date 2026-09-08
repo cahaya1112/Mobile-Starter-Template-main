@@ -5,7 +5,38 @@ class CourseCard extends StatelessWidget {
   final Course course;
 
   const CourseCard({super.key, required this.course});
-
+void _showCourseDetail(BuildContext context){
+  showModalBottomSheet(
+  context: context,
+  shape: const RoundedRectangleBorder(
+    borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+  ),
+  builder: (context) {
+    return Padding(
+      padding: const EdgeInsets.all(24.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(course.name, style: Theme.of(context).textTheme.titleLarge),
+          const SizedBox(height: 8),
+          Text('Dosen: ${course.lecturer} • ${course.sks} SKS'),
+          const Divider(height: 24),
+          Text('Progress Pembelajaran: ${(course.progress * 100).toInt()}%'),
+          const SizedBox(height: 16),
+          SizedBox(
+            width: double.infinity,
+            child: FilledButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Tutup Rincian'),
+            ),
+          ),
+        ],
+      ),
+    );
+  },
+);
+}
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -14,6 +45,9 @@ class CourseCard extends StatelessWidget {
       elevation: 2,
       margin: const EdgeInsets.only(bottom: 4),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(16),
+        onTap: () => _showCourseDetail(context),
       child: Stack(
         children: [
           Padding(
@@ -115,6 +149,6 @@ class CourseCard extends StatelessWidget {
           ),
         ],
       ),
-    );
+    ));
   }
 }

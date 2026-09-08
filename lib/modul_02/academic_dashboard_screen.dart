@@ -13,6 +13,8 @@ class AcademicDashboardScreen extends StatefulWidget {
 
 class _AcademicDashboardScreenState extends State<AcademicDashboardScreen> {
   String _selectedCategory = 'Semua';
+  // fold(): Menjumlahkan bobot SKS dari seluruh objek Course di dalam list
+int get totalSks => _courses.fold(0, (sum, c) => sum + c.sks);
   List<Course> get _filteredCourses {
     if (_selectedCategory =='Semua') {
       return _courses;
@@ -28,7 +30,7 @@ class _AcademicDashboardScreenState extends State<AcademicDashboardScreen> {
     });
   }
   // Masukkan kode ini tepat di atas daftar mata kuliah
-Widget _buildCategoryFilter() {
+Widget _buildCategoryFilter(){
  return Wrap(
   spacing: 8.0,
   children: ['Semua', 'Teori', 'Praktikum'].map((category) {
@@ -45,7 +47,18 @@ Widget _buildCategoryFilter() {
     );
   }).toList(),
 );}
-
+Widget _buildSksWarningIfNeeded (){
+if (totalSks <= 24) return const SizedBox.shrink();
+return ListTile(
+  tileColor: const Color.fromARGB(255, 255, 0, 25),
+  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+  leading: const Icon(Icons.warning_amber_rounded, color: Colors.red),
+  title: Text(
+    'Peringatan: Total SKS ($totalSks SKS) melebihi batas 24 SKS!',
+    style: const TextStyle(color: Colors.red, fontSize: 12, fontWeight: FontWeight.bold),
+  ),
+);
+}
   @override
   Widget build(BuildContext context) {
     return Theme(
@@ -83,10 +96,23 @@ Widget _buildCategoryFilter() {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Kolom kiri: banner profil
-                    const Expanded(
+                    Expanded(
                       flex: 2,
                       child: SingleChildScrollView(
-                        child: HeaderBanner(),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _buildSksWarningIfNeeded(),
+                            const HeaderBanner(),
+                            const SizedBox(height: 16),
+                            const Text(
+                              'Filter Kategori:',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(height: 8),
+                            _buildCategoryFilter(),
+                          ],
+                        ),
                       ),
                     ),
                     const SizedBox(width: 20),
@@ -115,14 +141,17 @@ Widget _buildCategoryFilter() {
             return ListView(
               padding: const EdgeInsets.all(16),
               children: [
+                _buildSksWarningIfNeeded(),
                 const HeaderBanner(),
+                const SizedBox(height: 16),
+                _buildCategoryFilter(),
                 const SizedBox(height: 16),
                 Text(
                   'Mata Kuliah Semester 3 (${_courses.length} Terdaftar)',
                   style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 12),
-                ..._courses.map((course) => CourseCard(course: course)),
+                ..._filteredCourses.map((course) => CourseCard(course: course)),
               ],
             );
           },

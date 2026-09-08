@@ -42,7 +42,7 @@ class HeaderBanner extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: const Text(
-                    'Semester 5 (2026/2027)',
+                    'Semester 3 (2025/2026)',
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w600),
                   ),
