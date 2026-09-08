@@ -3,6 +3,7 @@ import 'models/course.dart';
 import 'widgets/course_card.dart';
 import 'widgets/header_banner.dart';
 
+
 class AcademicDashboardScreen extends StatefulWidget {
   const AcademicDashboardScreen({super.key});
 
@@ -11,6 +12,13 @@ class AcademicDashboardScreen extends StatefulWidget {
 }
 
 class _AcademicDashboardScreenState extends State<AcademicDashboardScreen> {
+  String _selectedCategory = 'Semua';
+  List<Course> get _filteredCourses {
+    if (_selectedCategory =='Semua') {
+      return _courses;
+    }
+    return _courses.where((course) => course.type == _selectedCategory).toList();
+  }
   final List<Course> _courses = Course.getSampleCourses();
   bool _isDarkMode = false;
 
@@ -19,6 +27,24 @@ class _AcademicDashboardScreenState extends State<AcademicDashboardScreen> {
       _isDarkMode = !_isDarkMode;
     });
   }
+  // Masukkan kode ini tepat di atas daftar mata kuliah
+Widget _buildCategoryFilter() {
+ return Wrap(
+  spacing: 8.0,
+  children: ['Semua', 'Teori', 'Praktikum'].map((category) {
+    return ChoiceChip(
+      label: Text(category),
+      selected: _selectedCategory == category,
+      onSelected: (selected) {
+        if (selected) {
+          setState(() {
+            _selectedCategory = category;
+          });
+        }
+      },
+    );
+  }).toList(),
+);}
 
   @override
   Widget build(BuildContext context) {

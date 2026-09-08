@@ -6,6 +6,7 @@ class Course {
   final int sks;
   final double progress; // progres silabus (0.0 - 1.0)
   final String room;
+  final String type;
 
   const Course({
     required this.code,
@@ -13,6 +14,7 @@ class Course {
     required this.lecturer,
     required this.sks,
     required this.progress,
+    this.type = 'Teori',
     this.room = 'Lab Komputer 3',
   });
 
@@ -26,6 +28,7 @@ class Course {
         sks: 4,
         progress: 0.25,
         room: 'Lab Komputer 3',
+        type: 'Praktikum',
       ),
       Course(
         code: 'TRPL502',
@@ -34,6 +37,7 @@ class Course {
         sks: 3,
         progress: 0.40,
         room: 'Ruang Teori 201',
+        type: 'Teori',
       ),
       Course(
         code: 'TRPL503',
@@ -42,6 +46,7 @@ class Course {
         sks: 3,
         progress: 0.60,
         room: 'Ruang Teori 104',
+        type: 'Teori',
       ),
       Course(
         code: 'TRPL504',
@@ -50,6 +55,7 @@ class Course {
         sks: 2,
         progress: 0.15,
         room: 'Lab Jaringan',
+        type: 'Praktikum',
       ),
     ];
   }
